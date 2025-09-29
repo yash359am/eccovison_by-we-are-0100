@@ -1,6 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+ import React, { useEffect, useRef } from 'react';
 import WasteClassifier from './components/WasteClassifier';
 import InfoSection from './components/InfoSection';
+import HomeHero from './components/HomeHero';
+import MoreContent from './components/MoreContent';
 
 const App: React.FC = () => {
     const headerRef = useRef<HTMLHeadingElement>(null);
@@ -21,15 +23,15 @@ const App: React.FC = () => {
         <div className="bg-gray-900 text-white min-h-screen font-sans antialiased">
             <main ref={mainRef} className="container mx-auto px-4 py-8 md:py-12">
                 <header className="text-center mb-8 md:mb-12">
-                    <h1 ref={headerRef} className="text-4xl md:text-6xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-teal-500">
-                        EcoVision
-                    </h1>
-                    <p ref={subRef} className="text-lg md:text-xl text-gray-400 mt-2">
-                        Your AI-Powered Guide to Sustainable Waste Disposal
-                    </p>
+                    <h1 ref={headerRef} className="sr-only">EcoVision</h1>
+                    <p ref={subRef} className="sr-only">Your AI-Powered Guide to Sustainable Waste Disposal</p>
                 </header>
-                <WasteClassifier />
+                <HomeHero onUploadClick={() => document.querySelector<HTMLInputElement>('input[type="file"]')?.click()} onCameraClick={() => (document.querySelector('button[data-open-camera]') as HTMLButtonElement)?.click()} />
+                <div className="mt-10">
+                    <WasteClassifier hideCtas />
+                </div>
                 <InfoSection />
+                <MoreContent />
             </main>
             <footer className="text-center py-6 text-gray-500 text-sm border-t border-gray-800">
                 <p>&copy; {new Date().getFullYear()} EcoVision. Helping build a cleaner planet.</p>

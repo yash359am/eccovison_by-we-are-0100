@@ -8,7 +8,9 @@ import { CameraIcon, UploadIcon } from './icons';
 
 type View = 'select' | 'camera' | 'loading' | 'result';
 
-const WasteClassifier: React.FC = () => {
+type WasteClassifierProps = { hideCtas?: boolean };
+
+const WasteClassifier: React.FC<WasteClassifierProps> = ({ hideCtas = false }) => {
     const [view, setView] = useState<View>('select');
     const [result, setResult] = useState<ClassificationResult | null>(null);
     const [error, setError] = useState<string | null>(null);
@@ -75,14 +77,20 @@ const WasteClassifier: React.FC = () => {
             case 'select':
                 return (
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <button onClick={triggerFileInput} className="flex-1 bg-teal-600 hover:bg-teal-700 transition-colors duration-300 text-white font-bold py-4 px-6 rounded-lg flex items-center justify-center gap-3 text-lg">
-                            <UploadIcon />
-                            Upload Image
-                        </button>
-                        <button onClick={() => setView('camera')} className="flex-1 bg-green-600 hover:bg-green-700 transition-colors duration-300 text-white font-bold py-4 px-6 rounded-lg flex items-center justify-center gap-3 text-lg">
-                            <CameraIcon />
-                            Use Camera
-                        </button>
+                        {!hideCtas && (
+                            <>
+                                <button onClick={triggerFileInput} className="flex-1 bg-teal-600 hover:bg-teal-700 transition-colors duration-300 text-white font-bold py-4 px-6 rounded-lg flex items-center justify-center gap-3 text-lg">
+                                    <UploadIcon />
+                                    Upload Image
+                                </button>
+                                <button data-open-camera onClick={() => setView('camera')} className="flex-1 bg-green-600 hover:bg-green-700 transition-colors duration-300 text-white font-bold py-4 px-6 rounded-lg flex items-center justify-center gap-3 text-lg">
+                                    <CameraIcon />
+                                    Use Camera
+                                </button>
+                            </>
+                        )}
+                        {/* Hidden controls remain in DOM for HomeHero triggers */}
+                        <button data-open-camera onClick={() => setView('camera')} className="hidden" aria-hidden="true" tabIndex={-1} />
                         <input type="file" ref={fileInputRef} onChange={handleFileChange} accept="image/*" className="hidden" />
                     </div>
                 );
