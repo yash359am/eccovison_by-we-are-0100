@@ -1,0 +1,7 @@
+{
+  "name": "EcoVision: AI Waste Sorter",
+  "description": "An intelligent web application that uses AI to classify waste from an image or your camera feed. Simply show it a piece of trash, and EcoVision will tell you if it's recyclable, compostable, or non-recyclable, helping you make sustainable choices.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
